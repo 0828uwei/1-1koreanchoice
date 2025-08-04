@@ -74,6 +74,7 @@
     <input type="text" id="nickname" placeholder="請輸入暱稱（暱稱為：姓名＋生日）" />
     <p class="note">暱稱範例：王小明0828</p>
     <p class="note">請於挑戰當日回傳合格成績</p>
+    <p id="submit-time" class="note"></p>
     <br />
     <button id="submit-btn" onclick="submitToGoogle()">提交成績</button>
     <button onclick="location.reload()">重新開始</button>
@@ -191,8 +192,11 @@
         body: formData
       })
         .then(() => {
+          const nowText = `${now.getMonth() + 1}月${now.getDate()}日 ${now.getHours()}時${now.getMinutes()}分${now.getSeconds()}秒 已完成回傳`;
+          document.getElementById("submit-time").textContent = nowText;
+
           alert("✅ 成績已成功回傳！");
-          location.reload();
+          setTimeout(() => location.reload(), 5000); // 5秒後自動刷新頁面
         })
         .catch(() => {
           alert("❌ 回傳失敗，請稍後再試");
